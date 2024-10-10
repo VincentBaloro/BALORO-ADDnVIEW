@@ -18,16 +18,27 @@ public class IT2BBALOROPAS {
           
           System.out.println("Enter Action: ");
           int action = sc.nextInt();
-          IT2BBALOROPAS sample = new IT2BBALOROPAS();
+          IT2BBALOROPAS animals = new IT2BBALOROPAS();
           switch(action){
               case 1:
-                  sample.addAnimals();
+                  animals.addAnimals();
               break;
               case 2:
-                  sample.viewAnimals();
+                  animals.viewAnimals();
               break;
+              case 3:
+                  animals.viewAnimals();
+                  animals.updateAnimals();
+                  animals.viewAnimals();
+              break;
+              case 4:
+                  animals.viewAnimals();
+                  animals.deleteAnimals();
+                  animals.viewAnimals();
+              break;
+              
           }
-          System.out.println("Doo you want to continue? (yes/no): ");
+          System.out.println("Do you want to continue? (yes/no): ");
           response = sc.next();
       }while(response.equalsIgnoreCase("yes"));
         System.out.println("Thank you, see you soon!");
@@ -59,4 +70,33 @@ public class IT2BBALOROPAS {
 
         conf.viewRecords(animalsQuery, animalsHeaders, animalsColumns);
     }
+    private void  updateAnimals(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter ID to update: ");
+        int id = sc.nextInt();
+        
+        System.out.println("New Name: ");
+        String naname = sc.next();
+        System.out.println("New Species: ");
+        String naspecies = sc.next();
+        System.out.println("New Breed: ");
+        String nabreed = sc.next();
+        System.out.println("New Size: ");
+        String nasize = sc.next();
+        
+        String qry = "UPDATE tbl_animals set a_name = ?, a_species = ?, a_breed = ?, a_size = ? WHERE a_id = ?";
+        config conf = new config();
+        conf.updateRecord(qry, naname, naspecies, nabreed, nasize, id);
+        
+    }
+    private void deleteAnimals(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter ID to Delete: ");
+        int id = sc.nextInt();
+     
+        String qry = "DELETE FROM tbl_animals WHERE a_id = ?";
+        config conf = new config();
+        conf.deleteRecord(qry, id);
+}
+    
 }
